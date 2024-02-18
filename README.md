@@ -22,7 +22,7 @@ Installed Version: 2.4.1
 
 # clone
 cd ~/workspace/prwnd9
-git clone
+git clone git@github.com:prwnd9/k0s.git
 cd k0s
 
 
