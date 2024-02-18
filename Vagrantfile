@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     config.vm.hostname = "k0s"
     config.vm.box_check_update = false
     config.vm.network "private_network", ip: "192.168.56.10"
-    # config.vm.synced_folder '.', '/vagrant', disabled: false
+    config.vm.synced_folder '.', '/vagrant', disabled: false
 
     # increase primary disk
     # https://www.vagrantup.com/docs/disks/usage
@@ -42,6 +42,12 @@ k0s install controller --single
 k0s start
 SCRIPT
     config.vm.provision "shell", :inline => $ROOT_SCRIPT
+
+$USER_SCRIPT = <<SCRIPT
+# go to /vagrant
+echo "cd /vagrant" >> /home/vagrant/.bashrc
+SCRIPT
+    config.vm.provision "shell", :inline => $USER_SCRIPT, privileged: false
 
   end
 end

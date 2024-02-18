@@ -34,4 +34,15 @@ sudo k0s kubectl get nodes
 
 
 # test
+sudo k0s kubectl apply -f whoami.yaml
+sudo k0s kubectl get deploy
+sudo k0s kubectl get svc
+sudo k0s kubectl get deploy whoami -o yaml | less
+curl 192.168.56.10:30000
+
+
+# stop or teardown
+vagrant halt
+vagrant destroy
 ```
+
