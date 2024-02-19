@@ -1,9 +1,11 @@
 # k0s
 
 Links:
+- https://k0sproject.io/
 - https://docs.k0sproject.io/stable/
 - https://docs.k0sproject.io/stable/install/
 - https://github.com/k0sproject/k0s/releases
+- https://github.com/k0sproject/k0sctl/releases
 
 Usage:
 ```bash
@@ -26,6 +28,8 @@ git clone git@github.com:prwnd9/k0s.git
 cd k0s
 
 
+# SINGLE NODE SETUP
+
 # provision
 vagrant up
 vagrant ssh
@@ -44,5 +48,12 @@ curl 192.168.56.10:30000
 # stop or teardown
 vagrant halt
 vagrant destroy
+
+
+# CLUSTER SETUP
+
+cd cluster
+vagrant up
+vagrant ssh
 ```
 
