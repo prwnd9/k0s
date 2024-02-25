@@ -65,9 +65,9 @@ iwr https://github.com/k0sproject/k0sctl/releases/download/v0.17.4/k0sctl-win-x6
 
 # SKIP: ALREADY PREPARED
 # create basic config template
-.\k0sctl init > k0sctl.yaml
+# .\k0sctl init > k0sctl.yaml
 # update with correct config
-nvim k0sctl.yaml
+# nvim k0sctl.yaml
 
 # deploy the cluster
 $env:SSH_KNOWN_HOSTS = "/dev/null"
