@@ -50,10 +50,38 @@ vagrant halt
 vagrant destroy
 
 
-# CLUSTER SETUP
 
+
+
+# CLUSTER SETUP
+# https://docs.k0sproject.io/stable/k0sctl-install/
 cd cluster
 vagrant up
-vagrant ssh
+
+# download k0sctl
+iwr https://github.com/k0sproject/k0sctl/releases/download/v0.17.4/k0sctl-win-x64.exe -o k0sctl.exe
+# run first via "Open" in the context menu
+.\k0sctl
+
+# SKIP: ALREADY PREPARED
+# create basic config template
+.\k0sctl init > k0sctl.yaml
+# update with correct config
+nvim k0sctl.yaml
+
+# deploy the cluster
+$env:SSH_KNOWN_HOSTS = "/dev/null"
+.\k0sctl --debug apply --config k0sctl.yaml --disable-telemetry
+
+# get kubeconfig
+.\k0sctl.exe kubeconfig > kubeconfig
+$env:KUBECONFIG="$(pwd)\kubeconfig"
+
+# test access
+choco install kubernetes-cli
+kubectl get nodes
+
+# tear down
+vagrant destroy
 ```
 

@@ -1,0 +1,63 @@
+# https://app.vagrantup.com/boxes
+
+Vagrant.configure("2") do |config|
+
+  # controller 1
+  config.vm.define "c1" do |c|
+    # https://app.vagrantup.com/boxes/search
+    # ubuntu 22.04
+    c.vm.box = "ubuntu/jammy64"
+
+    c.vm.hostname = "c1"
+    c.vm.box_check_update = false
+    c.vm.network "private_network", ip: "192.168.56.10"
+    # c.vm.synced_folder '.', '/vagrant', disabled: false
+
+    # increase primary disk
+    # https://www.vagrantup.com/docs/disks/usage
+    # export VAGRANT_EXPERIMENTAL="disks"
+    # c.vm.disk :disk, size: "200GB", primary: true
+
+    c.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.cpus = 1
+      vb.memory = "1024" # mb
+      vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ] # disable logging
+
+      # FIX
+      # https://github.com/hashicorp/vagrant/issues/9524
+      vb.customize [ "modifyvm", :id, "--audio", "none"]
+    end
+  end
+
+
+  # worker 1
+  config.vm.define "w1" do |c|
+    # https://app.vagrantup.com/boxes/search
+    # ubuntu 22.04
+    c.vm.box = "ubuntu/jammy64"
+
+    c.vm.hostname = "w1"
+    c.vm.box_check_update = false
+    c.vm.network "private_network", ip: "192.168.56.20"
+    # c.vm.synced_folder '.', '/vagrant', disabled: false
+
+    # increase primary disk
+    # https://www.vagrantup.com/docs/disks/usage
+    # export VAGRANT_EXPERIMENTAL="disks"
+    # c.vm.disk :disk, size: "200GB", primary: true
+
+    c.vm.provider "virtualbox" do |vb|
+      vb.gui = false
+      vb.cpus = 1
+      vb.memory = "512" # mb
+      vb.customize [ "modifyvm", :id, "--uartmode1", "disconnected" ] # disable logging
+
+      # FIX
+      # https://github.com/hashicorp/vagrant/issues/9524
+      vb.customize [ "modifyvm", :id, "--audio", "none"]
+    end
+  end
+
+end
+
